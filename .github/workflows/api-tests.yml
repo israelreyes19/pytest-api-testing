@@ -71,14 +71,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-results-dev
-          path: allure-results-combined/dev
+          path: allure-results-combined
         continue-on-error: true
 
       - name: Download Allure Results (PROD)
         uses: actions/download-artifact@v4
         with:
           name: allure-results-prod
-          path: allure-results-combined/prod
+          path: allure-results-combined
         continue-on-error: true
 
       - name: Install Allure CLI
