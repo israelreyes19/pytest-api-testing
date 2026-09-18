@@ -72,23 +72,39 @@ jobs:
         with:
           name: allure-results-dev
           path: allure-results-combined/dev
+        continue-on-error: true
 
       - name: Download Allure Results (PROD)
         uses: actions/download-artifact@v4
         with:
           name: allure-results-prod
           path: allure-results-combined/prod
+        continue-on-error: true
+
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jre
+          wget https://github.com/allure-framework/allure2/releases/download/2.24.0/allure-2.24.0.tgz
+          tar -zxvf allure-2.24.0.tgz
+          sudo mv allure-2.24.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
       - name: Generate Allure HTML Report
-        uses: simple-elf/allure-report-action@v1.7
+        run: |
+          allure generate allure-results-combined -o allure-report --clean
+
+      - name: Upload HTML Report Artifact
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          allure_results: allure-results-combined
-          allure_history: allure-history
+          name: allure-html-report
+          path: allure-report/
+          retention-days: 7
 
       - name: Deploy Allure Report to GitHub Pages
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-history
+          publish_dir: ./allure-report
