@@ -1,0 +1,1 @@
+INFO     client.api_client:api_client.py:41 HTTP GET http://localhost:3000/prod/users/nonexistent_user_9999@example.com -> Status: 500

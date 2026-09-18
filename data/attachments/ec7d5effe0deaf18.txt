@@ -1,0 +1,2 @@
+INFO     client.api_client:api_client.py:47 HTTP POST http://localhost:3000/dev/users -> Status: 201
+INFO     client.api_client:api_client.py:53 HTTP PUT http://localhost:3000/dev/users/user_1789751919749_1@example.com -> Status: 400

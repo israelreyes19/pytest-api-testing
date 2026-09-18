@@ -1,0 +1,1 @@
+INFO     client.api_client:api_client.py:35 HTTP DELETE http://localhost:3000/dev/users/user_1789751919672_1@example.com -> Status: 404

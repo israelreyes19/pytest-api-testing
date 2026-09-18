@@ -1,0 +1,1 @@
+INFO     client.api_client:api_client.py:53 HTTP PUT http://localhost:3000/prod/users/ghost_user_8888@example.com -> Status: 404

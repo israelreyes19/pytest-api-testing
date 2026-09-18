@@ -1,0 +1,1 @@
+INFO     client.api_client:api_client.py:41 HTTP GET http://localhost:3000/prod/users -> Status: 200
