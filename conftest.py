@@ -1,3 +1,4 @@
+import allure
 import pytest
 import time
 from config.settings import get_base_url, AUTH_TOKEN
@@ -35,3 +36,10 @@ def api_client(base_url) -> APIClient:
 def authenticated_client(base_url) -> APIClient: 
     """Shared instance of Authenticaded HTTP APIClient for testing session"""
     return APIClient(base_url=base_url, token=AUTH_TOKEN)
+
+@pytest.fixture(autouse=True)
+def add_environment_to_allure_report(request):
+  """Injects the target environment (--env) as a dynamic parameter into every Allure test case."""
+  env = request.config.getoption("--env").lower()
+  allure.dynamic.parameter("Environment", env.upper())
+  allure.dynamic.tag(f"env:{env}")
